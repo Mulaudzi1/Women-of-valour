@@ -39,41 +39,4 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     revealEls.forEach((el) => el.classList.add("is-visible"));
   }
-
-  /* Payment record search/filter */
-  const searchInput = document.getElementById("record-search");
-  const tableRows = document.querySelectorAll(".record-table tbody tr");
-  const resultCount = document.getElementById("result-count");
-  const noResults = document.getElementById("no-results");
-
-  if (searchInput && tableRows.length) {
-    const totalCount = tableRows.length;
-
-    const updateCount = (visible) => {
-      if (resultCount) {
-        resultCount.textContent =
-          visible === totalCount
-            ? `${totalCount} entries`
-            : `${visible} of ${totalCount} entries`;
-      }
-      if (noResults) {
-        noResults.classList.toggle("is-visible", visible === 0);
-      }
-    };
-
-    searchInput.addEventListener("input", () => {
-      const query = searchInput.value.trim().toLowerCase();
-      let visible = 0;
-
-      tableRows.forEach((row) => {
-        const match = row.textContent.toLowerCase().includes(query);
-        row.classList.toggle("is-hidden", !match);
-        if (match) visible += 1;
-      });
-
-      updateCount(visible);
-    });
-
-    updateCount(totalCount);
-  }
 });
